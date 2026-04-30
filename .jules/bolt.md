@@ -1,0 +1,3 @@
+## 2024-10-27 - [Squared Distance Instead of Math.sqrt]
+**Learning:** Game loops running continuously per frame shouldn't use Math.sqrt when they only need to check if a point is within a radius. The codebase has duplicated instances of Ball logic (`src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`) which each performed 6 `Math.sqrt` calculations per ball per frame.
+**Action:** When working on physics or distance calculations, always check if squared distances can be used instead. Ensure optimizations are mirrored across all duplicate class variants in this codebase. Always add explanatory comments to the optimizations.
