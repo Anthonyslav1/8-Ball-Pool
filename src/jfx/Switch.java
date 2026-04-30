@@ -6,14 +6,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Switch extends Application {
+    private static final Logger LOGGER = Logger.getLogger(Switch.class.getName());
     private Main main;
     @FXML
     private Button startButton;
@@ -35,7 +36,7 @@ public class Switch extends Application {
         try {
             main.showFirstPage();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error going back", e);
         }
     }
 
@@ -48,7 +49,7 @@ public class Switch extends Application {
         try {
             main.showGamePage();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error starting game", e);
         }
     }
 
@@ -57,7 +58,7 @@ public class Switch extends Application {
         try {
             main.showRulesPage();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error showing rules", e);
         }
     }
 
@@ -66,7 +67,7 @@ public class Switch extends Application {
         try {
             main.showTablePage();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error choosing table", e);
         }
     }
 
@@ -75,7 +76,7 @@ public class Switch extends Application {
         try {
             main.showQuePage();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error choosing que", e);
         }
     }
 

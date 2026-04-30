@@ -1,6 +1,11 @@
 package jfx;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //the target is to play with the two players using thread inter communication;while one is playing the other will be kept in a wait
 public class PlayerThread implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(PlayerThread.class.getName());
     boolean isPlaying;
     String name;
     Thread t;
@@ -29,7 +34,7 @@ public class PlayerThread implements Runnable {
                         }
                         wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        LOGGER.log(Level.SEVERE, "Interrupted while waiting", e);
                     }
                 }
             }
