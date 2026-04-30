@@ -22,13 +22,11 @@ import util.NetworkUtil;
 public class Play {
     Text fps = new Text(0, 30, "X");
     Text fps1 = new Text(400, 130, "SET SPEED");
-    //ArrayList<Ball> currentlyPottedBalls = new ArrayList<>();
     long lastFrame = 0;
     long frameCount = 0;
     Speed queBallSpeed = new Speed();
     double queBallRadianAngle;
     static int counter = 1;
-    //Ball ball;
     boolean start = false;
     boolean run = false;
     int i;
@@ -55,10 +53,7 @@ public class Play {
                 }
 
             }
-            //mouseAngleReporter.setText(prefixMouse + Math.toDegrees(radAngle));
-            //stickAngleReporter.setText(prefixstick + stickCurrentAngle());
         });
-        //System.out.println("inside setSpeed");
         double speed = speedmeter.getWidth()/100.0;
         double angle = stickCurrentAngle();
         queBallSpeed.setVelocity(1000*speed);
@@ -80,19 +75,12 @@ public class Play {
 
                 stick.setEndX(res[0]);
                 stick.setEndY(res[1]);
-            //mouseAngleReporter.setText(prefixMouse + Math.toDegrees(radAngle));
-            //stickAngleReporter.setText(prefixstick + stickCurrentAngle());
         });
 
     }
 
     private void updateGameState() {
-        /*double elapsedSec = (now - lastFrame) / 1000000000.0;
-        if (frameCount % 10 == 0)
-            fps.setText(String.format("%.1f", 1/elapsedSec));
-        lastFrame = now;*/
         //here the Que is being set to strike
-        //stick.isReadtoStrike = true;//during the game it will be kept true/false according to the situation
         while (true) {
             if (player.isMyturn()) {
                 if (stillBalls() == true) {
@@ -100,7 +88,6 @@ public class Play {
                     setSpeed = true;
                 }
                 if (stick.isReadtoStrike == true) {
-                    //System.out.println("in stick's state " + stick.isReadtoStrike);
                     settingtheQue();
                 } else {
                     stick.setOpacity(0.0);
@@ -133,8 +120,6 @@ public class Play {
                         nc.refresh();
                         nc.write(queBallSpeed);
                         System.out.println("wrote the speed");
-                    /*System.out.println("the state of " + stick.isReadtoStrike + "  " + setSpeed);
-                    System.out.println("in cueBall's state " + balls[15].isPotted);*/
                         counter++;
                         if (counter > 5) {
                             nc.refresh();
@@ -143,17 +128,6 @@ public class Play {
                         }
                     }
                 });
-                //System.out.println("in cueBall's state " + balls[15].isPotted);
-        /*if(counter%2 == 0){
-            if(player.isMyturn() == true){
-                System.out.println(counter);
-                player.setMyturn(false);
-            }
-            else {
-                System.out.println(counter);
-                player.setMyturn(true);
-            }
-        }*/
                 if ((frameCount > 0) && (stick.isReadtoStrike == false) && (setSpeed == false)) {
                     for (Ball b : balls) {
                         b.detectWallCollisions();
@@ -165,12 +139,8 @@ public class Play {
                                 b.ballCollisions(balls[i]);
                             }
                         }
-                        //balls[15].isPotted = false;
                         b.retardation();
                     }
-                    //QueBall.detectWallCollisions();
-                    //QueBall.updatePosition(elapsedSec);
-                    //retardation(QueBall);
                     String temp = Long.toString(frameCount);
                 }
             } else {
@@ -207,30 +177,12 @@ public class Play {
                                     b.ballCollisions(balls[i]);
                                 }
                             }
-                            //balls[15].isPotted = false;
                             b.retardation();
                         }
-                        //QueBall.detectWallCollisions();
-                        //QueBall.updatePosition(elapsedSec);
-                        //retardation(QueBall);
                         String temp = Long.toString(frameCount);
                     }
                 }
-                //System.out.println("in cueBall's state " + balls[15].isPotted);
-        /*if(counter%2 == 0){
-            if(player.isMyturn() == true){
-                System.out.println(counter);
-                player.setMyturn(false);
             }
-            else {
-                System.out.println(counter);
-                player.setMyturn(true);
-            }
-        }*/
-            }
-
-            //fps1.setText("SET SPEED");
-            //frameCount++;
         }
     }
 
@@ -255,10 +207,6 @@ public class Play {
         Media media = new Media(path);
         MediaPlayer mp = new MediaPlayer(media);
         mp.play();
-        //ImageView table = new ImageView(new Image(getClass().getResourceAsStream("pool-board.png")),700,350,342,);
-        //FXMLLoader loader = new FXMLLoader();
-        //loader.setLocation(getClass().getResource("playing.fxml"));
-        //root = loader.load();
 
 
         Image imgCover = new Image("frontpage.jpg");
@@ -281,10 +229,6 @@ public class Play {
         poolTable.setPreserveRatio(true);
         root.getChildren().add(poolTable);
 
-      /*  Rectangle r2 = new Rectangle(0, 150, 700, 350);
-        r2.setFill(Color.GREEN);
-        root.getChildren().add(r2);//we will add an image later
-*/
         Rectangle borderOfSpeedmeter = new Rectangle(480, 80, 140, 55);
         borderOfSpeedmeter.setFill(Color.BLACK);
         root.getChildren().add(borderOfSpeedmeter);//we will add an image later
@@ -318,19 +262,8 @@ public class Play {
         speedmeter.setFill(Color.BLUE);
         root.getChildren().add(speedmeter);
         stick.isReadtoStrike = true;
-        //setBalls(root);
-        //QueBall = new Ball(root, "Queball",16,130,325,12.5,0);
-        //Ball(Group root,String name,int ballNo, double x, double y, double radius, Paint fill, double velocity)
 
         setBalls(root);
-
-        /*new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                updateGameState(now);
-            }
-
-        }.start();*/
 
         updateGameState();
         primaryStage.show();
@@ -360,7 +293,6 @@ public class Play {
 
     private double stickCurrentAngle(){
         double angle = Math.toDegrees(Math.atan2(stick.getEndY() - pivot.getTranslateY(), stick.getEndX() - pivot.getTranslateX()));
-        //System.out.println("the angle is : "+angle);
         return  angle;
     }
 
