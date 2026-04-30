@@ -3,7 +3,11 @@ package tcpobject;
 import jfx.Speed;
 import util.NetworkUtil;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ReadThreadServer implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(ReadThreadServer.class.getName());
     String name;
     NetworkUtil nc1;
     NetworkUtil nc2;
@@ -61,7 +65,7 @@ public class ReadThreadServer implements Runnable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in ReadThreadServer run", e);
         }
     }
 }

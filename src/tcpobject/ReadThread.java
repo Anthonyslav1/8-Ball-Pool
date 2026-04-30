@@ -1,16 +1,16 @@
 package tcpobject;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import jfx.Speed;
-import jfx.Test;
 import util.NetworkUtil;
 
 import java.util.Scanner;
-import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReadThread implements Runnable {
+	private static final Logger LOGGER = Logger.getLogger(ReadThread.class.getName());
 	private Thread thr;
 	private NetworkUtil nc;
 	private Player player;
@@ -41,7 +41,7 @@ public class ReadThread implements Runnable {
 								new Play(player,nc,primaryStage);
 							}
 							catch (Exception e) {
-								e.printStackTrace();
+								LOGGER.log(Level.SEVERE, "Error starting Play", e);
 							}
 						}
 					});
@@ -83,11 +83,8 @@ public class ReadThread implements Runnable {
 				}
 			}*/
 		} catch(Exception e) {
-			System.out.println (e);
+			LOGGER.log(Level.SEVERE, "Error in ReadThread run", e);
 		}
 		nc.closeConnection();
 	}
 }
-
-
-

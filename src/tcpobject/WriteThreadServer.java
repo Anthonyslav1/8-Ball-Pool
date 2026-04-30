@@ -3,7 +3,11 @@ package tcpobject;
 import jfx.Speed;
 import util.NetworkUtil;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class WriteThreadServer implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(WriteThreadServer.class.getName());
     Thread t;
     NetworkUtil nc1,nc2;
     boolean pl1Playing,pl2Playing;
@@ -51,7 +55,7 @@ public class WriteThreadServer implements Runnable {
 
             }
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error in WriteThreadServer run", e);
         }
     }
 }

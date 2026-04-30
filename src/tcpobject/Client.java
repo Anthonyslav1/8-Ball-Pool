@@ -2,7 +2,6 @@ package tcpobject;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -23,8 +22,12 @@ import jfx.Speed;
 import jfx.Test;
 import util.NetworkUtil;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Client extends Application {
+	private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
 	//	private static boolean myturn;
 	NetworkUtil nc;
 	Text fps = new Text(0, 30, "X");
@@ -181,7 +184,7 @@ public class Client extends Application {
 	Exception e)
 
 	{
-		System.out.println(e);
+		LOGGER.log(Level.SEVERE, "Error in startGame2", e);
 	}
 
 }
@@ -539,7 +542,7 @@ public class Client extends Application {
 			System.out.println("in play");
 **/
 		} catch(Exception e) {
-			System.out.println (e);
+			LOGGER.log(Level.SEVERE, "Error in start", e);
 		}
 	}
 

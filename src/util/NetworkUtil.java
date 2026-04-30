@@ -4,20 +4,23 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NetworkUtil
 {
+	private static final Logger LOGGER = Logger.getLogger(NetworkUtil.class.getName());
 	private Socket socket;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
 
 	public NetworkUtil(String s, int port) {
 		try {
-			this.socket=new Socket(s,port);  
+			this.socket=new Socket(s,port);
 			oos=new ObjectOutputStream(socket.getOutputStream());
 			ois=new ObjectInputStream(socket.getInputStream());
 		} catch (Exception e) {
-			System.out.println("In NetworkUtil : " + e.toString());
+			LOGGER.log(Level.SEVERE, "Error in NetworkUtil constructor", e);
 		}
 	}
 
@@ -27,7 +30,7 @@ public class NetworkUtil
 			oos=new ObjectOutputStream(socket.getOutputStream());
 			ois=new ObjectInputStream(socket.getInputStream());
 		} catch (Exception e) {
-			System.out.println("In NetworkUtil : " + e.toString());
+			LOGGER.log(Level.SEVERE, "Error in NetworkUtil constructor", e);
 		}
 	}
 
@@ -36,18 +39,16 @@ public class NetworkUtil
 		try {
 			o=ois.readObject();
 		} catch (Exception e) {
-			e.printStackTrace();
-			//System.out.println("Reading Error in network : " + e.toString());
+			LOGGER.log(Level.SEVERE, "Reading Error in network", e);
 		}
 		return o;
 	}
-	
+
 	public void write(Object o) {
 		try {
-			oos.writeObject(o);                        
+			oos.writeObject(o);
 		} catch (IOException e) {
-			e.printStackTrace();
-			//System.out.println("Writing  Error in network : " + e.toString());
+			LOGGER.log(Level.SEVERE, "Writing Error in network", e);
 		}
 	}
 
@@ -56,15 +57,14 @@ public class NetworkUtil
 			ois.close();
 			oos.close();
 		} catch (Exception e) {
-			System.out.println("Closing Error in network : "  + e.toString());
+			LOGGER.log(Level.SEVERE, "Closing Error in network", e);
 		}
 	}
 	public void refresh()  {
 		try {
 			oos.reset();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Refresh Error in network", e);
 		}
 	}
 }
-
