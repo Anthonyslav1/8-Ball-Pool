@@ -1,0 +1,3 @@
+## 2023-10-27 - [Avoid Math.sqrt in high-frequency game loops]
+**Learning:** Found an anti-pattern in the game loop's collision/pocket detection (`potCheck`), where `Math.sqrt` was called unconditionally 6 times per ball on every frame. This expensive mathematical operation is unnecessary because we only compare the result to a constant value (`9`), and can easily avoid it by using short-circuiting and squared distance comparisons (e.g., `dist^2 <= 81`).
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) over calculating exact Euclidean distance (`Math.sqrt`) in collision detection, physics simulations, or any function called frequently inside a game loop.
