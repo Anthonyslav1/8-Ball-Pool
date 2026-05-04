@@ -3,7 +3,7 @@ package tcpsimple;
 import jfx.Speed;
 import util.NetworkUtil;
 
-import javax.jws.Oneway;
+
 import java.util.Scanner;
 
 public class Client {
