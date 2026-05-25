@@ -1,0 +1,3 @@
+## 2024-05-24 - Unconditional Math.sqrt in Game Loops
+**Learning:** Calculating exact Euclidean distance using `Math.sqrt` unconditionally in high-frequency game loops (like `potCheck`) is a major performance anti-pattern in this codebase. Replacing it with squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) gives ~11-12% performance improvement in tight execution loops.
+**Action:** Always prefer short-circuiting logic and squared distance comparisons for collision and pocket detection instead of allocating or calculating full distances unconditionally.
