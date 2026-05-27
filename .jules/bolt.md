@@ -1,0 +1,3 @@
+## 2024-05-27 - Truncated Bash Inspection & Context Verification
+**Learning:** Bash tools like `sed` and `cat` in the sandbox environment may truncate output silently (e.g., at 1000 characters) when inspecting files. Planning logic based solely on context memory or truncated output violates Groundedness Rules, as specific blocks (like conditionally executing `Try` or `Try2` behavior within a `potCheck`) might differ slightly.
+**Action:** When creating plans modifying complex logic, always verify the exact logic by using `read_file` or narrow `sed` line bounds (e.g. `sed -n '140,165p'`) before committing to the plan steps.
