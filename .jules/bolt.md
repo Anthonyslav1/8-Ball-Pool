@@ -1,0 +1,3 @@
+## 2024-05-30 - [Optimize distance calculations]
+**Learning:** High-frequency game loops (e.g. `potCheck`) calculating exact Euclidean distance (`Math.sqrt`) unconditionally acts as a severe bottleneck. Furthermore, `Ball.java` is duplicated across multiple packages (`client`, `jfx`, `tcpobject`) requiring optimizations to be mirrored while preserving package-specific behavior.
+**Action:** Always prefer squared distance comparisons (`<= radius*radius`) over `Math.sqrt` and cache repeated variable calls (like `getCenterX()`) in local variables in tight loops. Ensure duplicated logic across the three `Ball` variants is consistently updated.
