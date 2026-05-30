@@ -1,0 +1,3 @@
+## 2024-05-14 - Replace Math.sqrt with squared distance in hot loops
+**Learning:** High-frequency game loops (e.g., `potCheck`) can suffer ~11-12% performance degradation due to redundant `Math.sqrt` calculations and repeated getter calls (e.g., `getCenterX()`).
+**Action:** Always prefer short-circuiting logic and squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision and pocket detection. Cache repeated method calls into local variables within these loops to avoid overhead.
