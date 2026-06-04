@@ -129,26 +129,25 @@ public class Ball1 {
 	}
 
 
+	// ⚡ Bolt: Use squared distance to avoid expensive Math.sqrt calls and cache center coords.
 	public void potCheck(){
-		double deltaX1 = this.getCenterX()- 15;
-		double deltaY1 = this.getCenterY()- 165;
-		double deltaX2 = this.getCenterX()- 350;
-		double deltaY2 = this.getCenterY()- 165;
-		double deltaX3 = this.getCenterX()- 685;
-		double deltaY3 = this.getCenterY()- 165;
-		double deltaX4 = this.getCenterX()- 15;
-		double deltaY4 = this.getCenterY()- 485;
-		double deltaX5 = this.getCenterX()- 350;
-		double deltaY5 = this.getCenterY()- 485;
-		double deltaX6 = this.getCenterX()- 685;
-		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
+		double cx = this.getCenterX();
+		double cy = this.getCenterY();
+
+		double dyTop = cy - 165;
+		double dyTopSq = dyTop * dyTop;
+		double dyBot = cy - 485;
+		double dyBotSq = dyBot * dyBot;
+
+		double dx1 = cx - 15;
+		double dx1Sq = dx1 * dx1;
+		double dx2 = cx - 350;
+		double dx2Sq = dx2 * dx2;
+		double dx3 = cx - 685;
+		double dx3Sq = dx3 * dx3;
+
+		if (dx1Sq + dyTopSq <= 81 || dx2Sq + dyTopSq <= 81 || dx3Sq + dyTopSq <= 81 ||
+			dx1Sq + dyBotSq <= 81 || dx2Sq + dyBotSq <= 81 || dx3Sq + dyBotSq <= 81) {
 			this.setVx(0);
 			this.setVy(0);
 			this.isPotted = true;
