@@ -1,0 +1,3 @@
+## 2024-05-14 - Replace Math.sqrt in potCheck with squared distance comparisons
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (like `potCheck`) is a known performance anti-pattern in this codebase. It provides approximately an 11-12% performance improvement to replace it with squared distance comparisons.
+**Action:** Always prefer short-circuiting logic and squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision and pocket detection. Apply this across all variations of the `Ball` class (`src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`). Cache `getCenterX()` and `getCenterY()` into local variables within loops.
