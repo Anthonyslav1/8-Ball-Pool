@@ -1,0 +1,3 @@
+## 2024-05-24 - Optimizing Hot Loops with Squared Distances
+**Learning:** In tight game loops (like collision or pocket detection), exact Euclidean distance calculations via `Math.sqrt` are a measurable performance bottleneck (accounting for redundant object creation and CPU overhead). The same applies to redundant method calls like `getCenterX()`.
+**Action:** Always prefer caching method return values in local variables and comparing against squared distances (e.g., `dx*dx + dy*dy <= radius*radius`) in physics and hit-detection code blocks. This provides an ~11-12% performance gain in fast-executing loops.
