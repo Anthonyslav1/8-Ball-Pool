@@ -1,0 +1,3 @@
+## 2026-06-15 - Expensive Euclidean Distance and Redundant Method Calls in Game Loop
+**Learning:** This codebase incorrectly relies on unconditional `Math.sqrt` calculations and redundant `getCenterX()`/`getCenterY()` method calls inside high-frequency game loop methods like `potCheck()` across multiple `Ball` implementations.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (e.g., `dx*dx + dy*dy <= 81`) and cache getter results in local variables to avoid redundant overhead. Always ensure mirrored changes across `src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`.
