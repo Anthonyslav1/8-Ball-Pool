@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid exact Euclidean distance in high-frequency game loops
+**Learning:** Computing exact Euclidean distance using `Math.sqrt` unconditionally in collision checks like `potCheck` is an expensive anti-pattern, especially since multiple potential colliders (6 pockets) are evaluated frequently. It forces unnecessary computational overhead.
+**Action:** Always replace exact distance checks (`dis <= threshold`) with squared distance comparisons (`(dx*dx + dy*dy) <= threshold*threshold`). Cache redundant method calls (`getCenterX()`) into local variables. Furthermore, use short-circuit boolean logic (`||` on conditions rather than computing all distances up front) to bypass subsequent calculations once a collision is detected.
