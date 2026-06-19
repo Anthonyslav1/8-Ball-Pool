@@ -1,0 +1,3 @@
+## 2026-06-19 - Expensive Math.sqrt in High-Frequency Physics Loops
+**Learning:** The codebase previously calculated exact Euclidean distance unconditionally using `Math.sqrt` inside the `potCheck` physics loop, which is called frequently during ball movement. Additionally, method calls like `getCenterX()` were redundantly calculated multiple times in the same context instead of cached.
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) and early returns (short-circuiting) over exact `Math.sqrt` calculations for collision and boundary checks. Cache repeated getter calls within tight loops to prevent redundant execution overhead.
