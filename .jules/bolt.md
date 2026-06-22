@@ -1,0 +1,3 @@
+## 2024-06-25 - Expensive Math.sqrt Game Loop Anti-Pattern
+**Learning:** Found an anti-pattern specific to this codebase where `Math.sqrt` and multiple getters were invoked unconditionally in tight simulation game loops (e.g. `potCheck()`) leading to compounding GC churn and slow collision evaluation inside `Ball`. Removing the exact distance requirement for squared boundary checks completely circumvents this issue.
+**Action:** Always favor short-circuited squared-distance logic (`distX*distX + distY*distY <= squaredRadius`) over unconditional `Math.sqrt` evaluation in loop-heavy components across all network instances.
