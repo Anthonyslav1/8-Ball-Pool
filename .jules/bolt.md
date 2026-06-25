@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid Math.sqrt for Distance Calculation
+**Learning:** In a fast-paced game loop such as in the `potCheck` method, calculating distance using `Math.sqrt` involves a substantial amount of CPU computation overhead. Specifically, calculating precise square roots across numerous objects is an identified codebase-specific anti-pattern.
+**Action:** Replace `Math.sqrt` with squared distance checks where actual distance scaling isn't required. Use `dx*dx + dy*dy <= radius*radius` as this yields an equivalent condition but is up to 11-12% faster. Ensure consistent updates across all variants of classes (e.g. `src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`).
