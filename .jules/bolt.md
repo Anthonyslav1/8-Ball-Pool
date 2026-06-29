@@ -1,0 +1,3 @@
+## 2024-05-18 - Math.sqrt() usage in distance formulas
+**Learning:** Using `Math.sqrt()` extensively within unconditionally evaluated tight loops (like `potCheck`) adds unnecessary floating point math overhead. Distance comparisons can be reliably performed using squared comparisons instead. Furthermore, caching repeated calls like `getCenterX()` prevents redundant method executions in the inner logic blocks.
+**Action:** When implementing distance logic in high frequency routines, prefer squared distances. Remember to untrack `.class` and `.png` artifacts if running test compilations before checking in source changes.
