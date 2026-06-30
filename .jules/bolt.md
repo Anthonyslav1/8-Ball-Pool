@@ -1,0 +1,3 @@
+## 2024-05-18 - Math.sqrt in high-frequency game loops
+**Learning:** Found multiple identical implementations of `potCheck` across `Ball` classes calculating Euclidean distance (`Math.sqrt`) 6 times unconditionally every frame/tick, along with repeated `getCenterX`/`getCenterY` method calls.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (`<= 81` instead of `<= 9`) and cache repeated method calls locally within the method body to avoid redundant invocation overhead in high-frequency loops. This must be applied across all mirrored classes (`src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`).
