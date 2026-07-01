@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid Math.sqrt in High-Frequency Game Loops
+**Learning:** Found an unconditional calculation of exact Euclidean distance (`Math.sqrt()`) running iteratively 6 times per ball within the `potCheck()` method, which executes constantly in the main game loop. Because `Math.sqrt()` is computationally expensive, this constitutes a codebase-specific anti-pattern.
+**Action:** Always replace `Math.sqrt(distance)` comparisons with identical squared distance comparisons (`distance <= squared_threshold`) for collision detection or pocket checks to eliminate the overhead while maintaining exact logical equivalence.
