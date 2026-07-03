@@ -1,0 +1,3 @@
+## 2024-03-01 - Avoid Math.sqrt in high-frequency loops
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (e.g., `potCheck`) is a measurable performance bottleneck. The same applies to redundant method calls like `getCenterX()` and `getCenterY()`.
+**Action:** Always prefer short-circuiting logic and squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision and pocket detection. Cache repeated method calls into local variables within tight loops to avoid redundant execution overhead.
