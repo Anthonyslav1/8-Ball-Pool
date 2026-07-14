@@ -1,0 +1,3 @@
+## 2024-07-14 - Expensive Math.sqrt in Game Loop
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (e.g., `potCheck`) is a major performance anti-pattern. This codebase duplicates similar logic across three equivalent files: `src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision and pocket detection to optimize performance. Also, always check for code duplication across similar files to ensure optimizations are applied consistently.
