@@ -1,0 +1,3 @@
+## 2024-05-18 - Math.sqrt overhead in game loops
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (e.g., `potCheck`) is a major performance anti-pattern. This logic is also duplicated across multiple equivalent classes (`client/Ball.java`, `jfx/Ball1.java`, `tcpobject/Ball.java`).
+**Action:** Always prefer short-circuiting logic and squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision and pocket detection to improve performance without altering functionality. Ensure optimizations are consistently applied across all duplicated variants.
