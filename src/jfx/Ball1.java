@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
+
 
 public class Ball1 {
 	public String getName() {
@@ -67,7 +67,7 @@ public class Ball1 {
 	}
 
 	public void bounce(Ball1 b1, Ball1 b2, double deltaX, double deltaY){
-		double distance = sqrt(deltaX * deltaX + deltaY * deltaY) ;
+		double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY) ;
 		double unitContactX = deltaX / distance ;
 		double unitContactY = deltaY / distance ;
 
@@ -130,25 +130,28 @@ public class Ball1 {
 
 
 	public void potCheck(){
-		double deltaX1 = this.getCenterX()- 15;
-		double deltaY1 = this.getCenterY()- 165;
-		double deltaX2 = this.getCenterX()- 350;
-		double deltaY2 = this.getCenterY()- 165;
-		double deltaX3 = this.getCenterX()- 685;
-		double deltaY3 = this.getCenterY()- 165;
-		double deltaX4 = this.getCenterX()- 15;
-		double deltaY4 = this.getCenterY()- 485;
-		double deltaX5 = this.getCenterX()- 350;
-		double deltaY5 = this.getCenterY()- 485;
-		double deltaX6 = this.getCenterX()- 685;
-		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
+		double cx = this.getCenterX();
+		double cy = this.getCenterY();
+		double deltaX1 = cx - 15;
+		double deltaY1 = cy - 165;
+		double deltaX2 = cx - 350;
+		double deltaY2 = cy - 165;
+		double deltaX3 = cx - 685;
+		double deltaY3 = cy - 165;
+		double deltaX4 = cx - 15;
+		double deltaY4 = cy - 485;
+		double deltaX5 = cx - 350;
+		double deltaY5 = cy - 485;
+		double deltaX6 = cx - 685;
+		double deltaY6 = cy - 485;
+		// Opt: Skip Math.Math.sqrt, use squared distance check (9^2 = 81)
+		double disSq1 = (deltaX1*deltaX1)+(deltaY1*deltaY1);
+		double disSq2 = (deltaX2*deltaX2)+(deltaY2*deltaY2);
+		double disSq3 = (deltaX3*deltaX3)+(deltaY3*deltaY3);
+		double disSq4 = (deltaX4*deltaX4)+(deltaY4*deltaY4);
+		double disSq5 = (deltaX5*deltaX5)+(deltaY5*deltaY5);
+		double disSq6 = (deltaX6*deltaX6)+(deltaY6*deltaY6);
+		if(disSq1 <= 81 || disSq2 <= 81 || disSq3 <= 81 || disSq4 <= 81 || disSq5 <= 81 || disSq6 <= 81){
 			this.setVx(0);
 			this.setVy(0);
 			this.isPotted = true;
