@@ -1,0 +1,3 @@
+## 2024-06-25 - Caching arrays and eliminating Math.sqrt in high-frequency methods
+**Learning:** High-frequency game loops like `potCheck()` in collision systems suffer heavily from recalculating `Math.sqrt` and redeclaring primitive arrays/coordinate values repeatedly. This codebase also features duplicated logic across multiple equivalent class versions (e.g. `client/Ball`, `jfx/Ball1`, `tcpobject/Ball`) which requires changes to be mirrored carefully.
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) over exact Euclidean distance (`Math.sqrt`), and cache repeated object allocations or coordinate method calls as local variables or static finals where possible.
