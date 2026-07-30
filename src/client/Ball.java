@@ -142,13 +142,16 @@ public class Ball {
 		double deltaY5 = this.getCenterY()- 485;
 		double deltaX6 = this.getCenterX()- 685;
 		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
+
+		// ⚡ Bolt Performance Optimization:
+		// Replaced expensive Math.sqrt calls with squared distance comparisons
+		// and implemented short-circuit evaluation for faster pocket detection loop.
+		if( (deltaX1*deltaX1 + deltaY1*deltaY1) <= 81 ||
+		    (deltaX2*deltaX2 + deltaY2*deltaY2) <= 81 ||
+		    (deltaX3*deltaX3 + deltaY3*deltaY3) <= 81 ||
+		    (deltaX4*deltaX4 + deltaY4*deltaY4) <= 81 ||
+		    (deltaX5*deltaX5 + deltaY5*deltaY5) <= 81 ||
+		    (deltaX6*deltaX6 + deltaY6*deltaY6) <= 81 ) {
 			this.setVx(0);
 			this.setVy(0);
 			this.isPotted = true;
