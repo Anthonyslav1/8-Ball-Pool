@@ -1,0 +1,3 @@
+## $(date +%Y-%m-%d) - Prevent Committing Build Artifacts
+**Learning:** In Java/JavaFX projects compiled manually via `javac`, build directories (e.g., `out/`) and their contents can accidentally pollute git history if a `.gitignore` is not present, or if files are added to git before the `.gitignore` rule applies. Running manual builds without first ensuring the output path is tracked in `.gitignore` causes massive stage pollution.
+**Action:** Always ensure build directories (`out/`, `build/`, `target/`) and temporary scripts are properly added to `.gitignore` AND removed from the Git index (using `git rm -r --cached`) before creating a PR or requesting review.
