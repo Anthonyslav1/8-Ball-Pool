@@ -129,31 +129,30 @@ public class Ball {
 	}
 
 
+	// ⚡ Bolt Performance: Cache pocket coordinates to avoid re-allocating 12 doubles per check
+	private static final double[][] POCKETS = {
+			{15, 165}, {350, 165}, {685, 165},
+			{15, 485}, {350, 485}, {685, 485}
+	};
+	private static final double POCKET_RADIUS_SQ = 81.0; // 9^2
+
 	public void potCheck(){
-		double deltaX1 = this.getCenterX()- 15;
-		double deltaY1 = this.getCenterY()- 165;
-		double deltaX2 = this.getCenterX()- 350;
-		double deltaY2 = this.getCenterY()- 165;
-		double deltaX3 = this.getCenterX()- 685;
-		double deltaY3 = this.getCenterY()- 165;
-		double deltaX4 = this.getCenterX()- 15;
-		double deltaY4 = this.getCenterY()- 485;
-		double deltaX5 = this.getCenterX()- 350;
-		double deltaY5 = this.getCenterY()- 485;
-		double deltaX6 = this.getCenterX()- 685;
-		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
-			this.setVx(0);
-			this.setVy(0);
-			this.isPotted = true;
-			Try2.pottedBalls.add(this);
-			Try2.setPottedBalls();
+		// ⚡ Bolt Performance: Cache getters
+		double cx = this.getCenterX();
+		double cy = this.getCenterY();
+
+		// ⚡ Bolt Performance: Short-circuit loop and squared distance to avoid Math.sqrt()
+		for (double[] pocket : POCKETS) {
+			double dx = cx - pocket[0];
+			double dy = cy - pocket[1];
+			if (dx * dx + dy * dy <= POCKET_RADIUS_SQ) {
+				this.setVx(0);
+				this.setVy(0);
+				this.isPotted = true;
+				Try2.pottedBalls.add(this);
+				Try2.setPottedBalls();
+				return;
+			}
 		}
 	}
 
