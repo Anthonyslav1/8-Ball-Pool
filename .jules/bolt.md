@@ -1,0 +1,3 @@
+## 2026-08-01 - Optimization of Game Loop Distance Checking
+**Learning:** In tight game loops handling collisions or coordinate comparisons (like pocket detection), repeatedly re-allocating identical boundary coordinates (double array variables) inside the method and unconditionally computing exact Euclidean distance (Math.sqrt) creates unnecessary GC pressure and CPU overhead.
+**Action:** Always extract invariant coordinate data to private static final caches, compute coordinates relative to localized properties (like caching getCenterX), and use short-circuited square distance comparisons (dx*dx + dy*dy <= R*R) to bypass Math.sqrt calls.
