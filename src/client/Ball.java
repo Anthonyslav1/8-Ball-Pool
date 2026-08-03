@@ -5,8 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import jfx.Try;
 
-import static java.lang.Math.sqrt;
-
 public class Ball {
 	public String getName() {
 		return name;
@@ -67,7 +65,7 @@ public class Ball {
 	}
 
 	public void bounce(Ball b1, Ball b2, double deltaX, double deltaY){
-		double distance = sqrt(deltaX * deltaX + deltaY * deltaY) ;
+		double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY) ;
 		double unitContactX = deltaX / distance ;
 		double unitContactY = deltaY / distance ;
 
@@ -130,31 +128,31 @@ public class Ball {
 
 
 	public void potCheck(){
-		double deltaX1 = this.getCenterX()- 15;
-		double deltaY1 = this.getCenterY()- 165;
-		double deltaX2 = this.getCenterX()- 350;
-		double deltaY2 = this.getCenterY()- 165;
-		double deltaX3 = this.getCenterX()- 685;
-		double deltaY3 = this.getCenterY()- 165;
-		double deltaX4 = this.getCenterX()- 15;
-		double deltaY4 = this.getCenterY()- 485;
-		double deltaX5 = this.getCenterX()- 350;
-		double deltaY5 = this.getCenterY()- 485;
-		double deltaX6 = this.getCenterX()- 685;
-		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
+		double cx = this.getCenterX();
+		double cy = this.getCenterY();
+
+		// Bolt Performance Optimization: Replace Math.Math.sqrt with squared distance comparisons
+		// and use short-circuiting logic to avoid redundant calculations.
+		if (
+			isPotted(cx, cy, 15, 165) ||
+			isPotted(cx, cy, 350, 165) ||
+			isPotted(cx, cy, 685, 165) ||
+			isPotted(cx, cy, 15, 485) ||
+			isPotted(cx, cy, 350, 485) ||
+			isPotted(cx, cy, 685, 485)
+		) {
 			this.setVx(0);
 			this.setVy(0);
 			this.isPotted = true;
 			Try2.pottedBalls.add(this);
 			Try2.setPottedBalls();
 		}
+	}
+
+	private boolean isPotted(double cx, double cy, double px, double py) {
+		double dx = cx - px;
+		double dy = cy - py;
+		return (dx * dx) + (dy * dy) <= 81;
 	}
 
 	public void retardation(){
