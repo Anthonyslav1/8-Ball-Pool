@@ -1,0 +1,3 @@
+## 2024-06-25 - Avoid modifying git history in shallow repositories
+**Learning:** This repository has a very shallow commit history (often only one initial commit). Attempting to use `git reset HEAD~1` or `git reset HEAD^` when staging files accidentally will result in a fatal error: `ambiguous argument 'HEAD~1': unknown revision or path not in the working tree.`
+**Action:** When un-staging build artifacts (like a massive `out/` directory), strictly use `git restore --staged out/` and then `git clean -fd out/` or `rm -rf out`. Do NOT commit temporary artifacts with the intention of doing a soft reset (`git reset HEAD~1 --soft`) later, as it will crash if there is no deep commit history.
