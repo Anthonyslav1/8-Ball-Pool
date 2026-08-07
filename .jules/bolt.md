@@ -1,0 +1,3 @@
+## 2024-05-24 - Math.sqrt Performance Bottleneck
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (e.g., `potCheck`) is a major performance anti-pattern. Short-circuiting logic and squared distance comparisons are much more efficient.
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) and early returns for collision and pocket detection to avoid expensive floating-point arithmetic. Ensure to update duplicated logic across all similar classes (e.g., `src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`).
