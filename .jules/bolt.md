@@ -1,0 +1,3 @@
+## 2024-05-30 - Game Loop Optimization
+**Learning:** The JavaFX application has multiple identical copies of the `Ball` class (`src/jfx/Ball1.java`, `src/client/Ball.java`, `src/tcpobject/Ball.java`). When optimizing performance bottlenecks like `Math.sqrt` inside the `potCheck` game loop, you must replicate the exact optimization across all copies, being extremely careful to preserve the subtle class-specific logic (`Try` vs `Try2` and return types).
+**Action:** When finding a performance issue, always `grep` the repository for similar method signatures to find duplicated classes. Test headless UI loops via xvfb-run wrapped in a `kill $!` script to avoid indefinite hangs during verification.
