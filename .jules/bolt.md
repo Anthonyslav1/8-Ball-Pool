@@ -1,0 +1,1 @@
+## 2024-05-18 - Math.sqrt Performance Pattern\n**Learning:** The application has a tight loop where it calculates `Math.sqrt` repeatedly to check pocket distance for 6 pockets, scaling poorly with frames/tick rates.\n**Action:** Replaced `Math.sqrt` checks with a squared distance comparison (`dx*dx + dy*dy <= 81`) inside a short-circuit loop and cached coordinate lookups.
