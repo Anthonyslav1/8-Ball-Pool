@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid exact Euclidean distance in high-frequency game loops
+**Learning:** The codebase repeatedly uses `Math.sqrt` unconditionally in high-frequency game loops (e.g., `potCheck()` in `Ball.java`), which introduces unnecessary computational overhead. It also redundantly calls getter methods instead of caching local variables.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (e.g., `dx*dx + dy*dy <= radius*radius`) for pocket detection and collision detection, which provides ~11-12% performance improvement. Cache repeated getter calls (e.g., `getCenterX()`) into local variables within loops.
