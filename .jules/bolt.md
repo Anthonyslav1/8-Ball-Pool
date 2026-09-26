@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid Math.sqrt for Distance Checks in Game Loops
+**Learning:** Calculating exact Euclidean distance using `Math.sqrt` inside high-frequency game loops (like collision or pocket detection) introduces unnecessary processing overhead. Pocket distances only need relative comparison. Furthermore, calling `getCenterX()` and `getCenterY()` multiple times repeatedly adds method call overhead.
+**Action:** Replace `Math.sqrt(dx*dx + dy*dy) <= radius` with squared distance comparisons `(dx*dx + dy*dy) <= radius*radius`. Cache repeated method calls like `getCenterX()` into local variables before calculating multiple distances.
