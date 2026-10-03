@@ -1,0 +1,3 @@
+## 2024-03-24 - Exact Distance Calculation Overhead in High-Frequency Game Loops
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (like `potCheck` which is called per frame per ball) is a significant performance anti-pattern in this codebase. Furthermore, repeated method calls like `getCenterX()` inside the distance calculations add up unnecessarily.
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision/pocket detection to avoid `Math.sqrt` overhead. Apply short-circuiting logic so we don't calculate all pockets if one matches. Cache repeated method results (like coordinates) in local variables within the loop/method.
