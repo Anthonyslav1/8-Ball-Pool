@@ -1,0 +1,3 @@
+## 2024-05-24 - Math.sqrt in high-frequency potCheck loops
+**Learning:** This JavaFX pool game codebase calculates Euclidean distance using `Math.sqrt` to check for ball potting multiple times per frame for every active ball. In the `potCheck` method of `Ball`, `Ball1`, and `tcpobject/Ball`, we can avoid the expensive square root calculation by just comparing the squared distance (`deltaX^2 + deltaY^2`) to the squared radius (`9*9 = 81`).
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) over exact `Math.sqrt` calculations in collision detection or hot loops to boost framerate/performance.
