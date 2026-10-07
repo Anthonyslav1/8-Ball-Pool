@@ -1,0 +1,3 @@
+## 2024-06-25 - Caching Coordinates and Squared Distance Checking
+**Learning:** Checking Euclidean distance blindly across statically known pocket coordinates inside game loop collision detection (`potCheck()`) introduces notable overhead due to `Math.sqrt` and multiple local variable instantiations.
+**Action:** Avoid allocating new local coordinate variables and unconditional `Math.sqrt` inside tight loops like `potCheck`. Cache statically known coordinates in a `private static final` array and iterate with early exits (short-circuiting). Use squared distance checking (`dx * dx + dy * dy <= radius * radius`) exclusively to bypass the `Math.sqrt` overhead.
