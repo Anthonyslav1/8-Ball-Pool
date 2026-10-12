@@ -1,0 +1,3 @@
+## 2024-06-25 - Avoid Exact Euclidean Distance Calculations in High-Frequency Loops
+**Learning:** Calculating exact Euclidean distance using `Math.sqrt` unconditionally in high-frequency game loops (like `potCheck`) is a major performance bottleneck, unnecessarily burning CPU cycles. We also notice redundant method calls `getCenterX()` and `getCenterY()` being executed multiple times within the loop.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (e.g., `dx*dx + dy*dy <= radius*radius`) for distance checks. Always cache repeated method calls inside hot code blocks into local variables.
