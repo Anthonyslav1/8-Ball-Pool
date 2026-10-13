@@ -1,0 +1,3 @@
+## 2024-10-13 - Avoid Math.sqrt in High-Frequency Game Loops
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (e.g., collision detection or `potCheck`) is a major performance anti-pattern. Benchmarks show `Math.sqrt` carries significant execution overhead.
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radiusSq`) when checking if points fall within a radius, effectively avoiding the square root entirely. This pattern applies strictly to methods invoked frequently (e.g., `potCheck()` in `Ball.java` implementations).
