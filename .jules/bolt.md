@@ -1,0 +1,3 @@
+## 2024-05-19 - Unconditional Euclidean Distance in High-Frequency Game Loops
+**Learning:** The codebase repeatedly calculates exact Euclidean distance using `Math.sqrt()` in the `potCheck()` method of `Ball.java` (across multiple duplicates: `src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`). This happens multiple times per frame for all balls. Furthermore, it allocates new coordinate arrays and calculates distances unconditionally even when not close to any pocket.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (e.g., `dx*dx + dy*dy <= radius*radius`) in all `potCheck` methods to avoid expensive square root operations and avoid redundant allocations.
