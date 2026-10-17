@@ -1,0 +1,3 @@
+## 2026-10-17 - [Optimize Euclidean Distance Calculations]
+**Learning:** High-frequency methods like `potCheck` in the game loops shouldn't unconditionally invoke expensive calculations like `Math.sqrt` when simple squared distance limits work. Furthermore, calling repeated getter methods (like `getCenterX()`) increases execution overhead significantly.
+**Action:** Always favor comparing squared Euclidean distance against a squared limit instead of executing a root calculation. Additionally, cache duplicate method calls (like retrieving positions) inside local variables when iterating in tight game loops to save processing time and avoid redundant calls.
