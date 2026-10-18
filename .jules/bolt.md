@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid exact Euclidean distance in high-frequency game loops
+**Learning:** In JavaFX game development, using `Math.sqrt` unconditionally inside methods called on every frame (like `potCheck`) adds unnecessary overhead. The `Math.sqrt` operation calculates the exact Euclidean distance, which is computationally expensive compared to a simple multiplication.
+**Action:** Replace `Math.sqrt(dx*dx + dy*dy) <= radius` with squared distance checks `dx*dx + dy*dy <= radius*radius` to avoid square root calculations in hot paths like collision and pocket detection. I should also implement early returns when one pocket detects the ball.
