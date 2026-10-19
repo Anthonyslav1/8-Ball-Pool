@@ -1,0 +1,3 @@
+## 2024-05-24 - Unnecessary Math.sqrt allocations in high-frequency game loop
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) and allocating multiple local coordinate variables unconditionally inside high-frequency game loop functions like `potCheck()` and `bounce()` represents a significant performance anti-pattern.
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for threshold checking like pocket detection, and cache repeated method calls like `getCenterX()` and `getCenterY()`. Additionally, utilize class-level `static final` arrays for constant coordinates (like pocket positions) to reduce continuous object allocations inside the loop.
