@@ -130,31 +130,48 @@ public class Ball1 {
 
 
 	public void potCheck(){
-		double deltaX1 = this.getCenterX()- 15;
-		double deltaY1 = this.getCenterY()- 165;
-		double deltaX2 = this.getCenterX()- 350;
-		double deltaY2 = this.getCenterY()- 165;
-		double deltaX3 = this.getCenterX()- 685;
-		double deltaY3 = this.getCenterY()- 165;
-		double deltaX4 = this.getCenterX()- 15;
-		double deltaY4 = this.getCenterY()- 485;
-		double deltaX5 = this.getCenterX()- 350;
-		double deltaY5 = this.getCenterY()- 485;
-		double deltaX6 = this.getCenterX()- 685;
-		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
-			this.setVx(0);
-			this.setVy(0);
-			this.isPotted = true;
-			Try.pottedBalls.add(this);
-			Try.setPottedBalls();
+		double cx = this.getCenterX();
+		double cy = this.getCenterY();
+		// Avoid Math.sqrt and use squared distance (9*9 = 81)
+
+		double dx1 = cx - 15;
+		double dy1 = cy - 165;
+		if (dx1 * dx1 + dy1 * dy1 <= 81) {
+			potBall(); return;
 		}
+		double dx2 = cx - 350;
+		double dy2 = cy - 165;
+		if (dx2 * dx2 + dy2 * dy2 <= 81) {
+			potBall(); return;
+		}
+		double dx3 = cx - 685;
+		double dy3 = cy - 165;
+		if (dx3 * dx3 + dy3 * dy3 <= 81) {
+			potBall(); return;
+		}
+		double dx4 = cx - 15;
+		double dy4 = cy - 485;
+		if (dx4 * dx4 + dy4 * dy4 <= 81) {
+			potBall(); return;
+		}
+		double dx5 = cx - 350;
+		double dy5 = cy - 485;
+		if (dx5 * dx5 + dy5 * dy5 <= 81) {
+			potBall(); return;
+		}
+		double dx6 = cx - 685;
+		double dy6 = cy - 485;
+		if (dx6 * dx6 + dy6 * dy6 <= 81) {
+			potBall(); return;
+		}
+	}
+
+	private void potBall() {
+		this.setVx(0);
+		this.setVy(0);
+		this.isPotted = true;
+		Try.pottedBalls.add(this);
+		Try.setPottedBalls();
 	}
 
 	public void retardation(){
