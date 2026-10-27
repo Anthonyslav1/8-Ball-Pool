@@ -1,0 +1,3 @@
+## 2024-05-18 - Replacing exact Euclidean distance with squared distance comparisons
+**Learning:** Calculating exact Euclidean distance using `Math.sqrt` inside tight execution loops like physics `potCheck()` is an expensive operation in this codebase and introduces unnecessary CPU overhead when doing fixed threshold checks.
+**Action:** Always replace exact `Math.sqrt` conditions (e.g., `<= 9`) with mathematically equivalent squared distance comparisons (e.g., `<= 81`), and pull duplicate object state accessor calls (e.g., `getCenterX()`) out of loop bodies/condition blocks into local variables for faster memory retrieval.
