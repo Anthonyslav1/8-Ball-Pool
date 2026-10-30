@@ -1,0 +1,3 @@
+## 2024-10-30 - Optimize exact Euclidean distance calculation in tight game loop
+**Learning:** Computing exact `Math.sqrt` to check if a ball is within a radius for potting in the `potCheck` method is computationally expensive and unnecessary in high-frequency game loops. The same logic is duplicated across multiple equivalent classes (`src/client/Ball.java`, `src/jfx/Ball1.java`, and `src/tcpobject/Ball.java`).
+**Action:** Always prefer squared distance comparisons (`dx*dx + dy*dy <= radius*radius`) for collision and distance checks to avoid the overhead of square root operations, and ensure that when modifying duplicated structural classes, the optimization is applied consistently across all of them.
