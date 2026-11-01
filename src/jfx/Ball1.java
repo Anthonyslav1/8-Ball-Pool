@@ -130,25 +130,22 @@ public class Ball1 {
 
 
 	public void potCheck(){
-		double deltaX1 = this.getCenterX()- 15;
-		double deltaY1 = this.getCenterY()- 165;
-		double deltaX2 = this.getCenterX()- 350;
-		double deltaY2 = this.getCenterY()- 165;
-		double deltaX3 = this.getCenterX()- 685;
-		double deltaY3 = this.getCenterY()- 165;
-		double deltaX4 = this.getCenterX()- 15;
-		double deltaY4 = this.getCenterY()- 485;
-		double deltaX5 = this.getCenterX()- 350;
-		double deltaY5 = this.getCenterY()- 485;
-		double deltaX6 = this.getCenterX()- 685;
-		double deltaY6 = this.getCenterY()- 485;
-		double dis1 = Math.sqrt((deltaX1*deltaX1)+(deltaY1*deltaY1));
-		double dis2 = Math.sqrt((deltaX2*deltaX2)+(deltaY2*deltaY2));
-		double dis3 = Math.sqrt((deltaX3*deltaX3)+(deltaY3*deltaY3));
-		double dis4 = Math.sqrt((deltaX4*deltaX4)+(deltaY4*deltaY4));
-		double dis5 = Math.sqrt((deltaX5*deltaX5)+(deltaY5*deltaY5));
-		double dis6 = Math.sqrt((deltaX6*deltaX6)+(deltaY6*deltaY6));
-		if(dis1 <= 9 || dis2 <= 9 || dis3 <= 9 || dis4 <= 9 || dis5 <= 9 || dis6 <= 9){
+		double cx = this.getCenterX();
+		double cy = this.getCenterY();
+
+		// Bolt: Performance Optimization
+		// 1. Replaced Math.sqrt with squared distance comparisons (<= 81) to avoid expensive square roots.
+		// 2. Extracted duplicated coordinate math and cached getCenterX()/getCenterY().
+		// 3. Early exit provided by short-circuiting || evaluations.
+		double dyTopSq = (cy - 165) * (cy - 165);
+		double dyBotSq = (cy - 485) * (cy - 485);
+
+		double dx1Sq = (cx - 15) * (cx - 15);
+		double dx2Sq = (cx - 350) * (cx - 350);
+		double dx3Sq = (cx - 685) * (cx - 685);
+
+		if (dx1Sq + dyTopSq <= 81 || dx2Sq + dyTopSq <= 81 || dx3Sq + dyTopSq <= 81 ||
+			dx1Sq + dyBotSq <= 81 || dx2Sq + dyBotSq <= 81 || dx3Sq + dyBotSq <= 81) {
 			this.setVx(0);
 			this.setVy(0);
 			this.isPotted = true;
