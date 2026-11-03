@@ -1,0 +1,3 @@
+## 2024-06-25 - Euclidean distance calculation overhead in potCheck()
+**Learning:** Calculating exact Euclidean distance (`Math.sqrt`) unconditionally in high-frequency game loops (`potCheck()`) is a performance anti-pattern. The `potCheck()` method repeatedly invokes `Math.sqrt` and makes redundant calls to `getCenterX()` and `getCenterY()`.
+**Action:** Replace `Math.sqrt` with squared distance comparisons (`dx*dx + dy*dy <= radius*radius`). Cache repeated method calls like `getCenterX()` and `getCenterY()` into local variables within loops (or distance formulas) to avoid redundant execution overhead.
